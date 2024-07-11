@@ -2,6 +2,7 @@ import Navbar from "../components/Navbar"
 import { useState, useEffect } from 'react'
 import fetchAllPosts from "../auth/fetchAllPosts"
 import BlogCards from "../components/BlogCards"
+import CheckToken from "../auth/checkToken"
 
 function AllPosts() {
 
@@ -36,6 +37,7 @@ function AllPosts() {
     return (
         <div>
             <Navbar />
+            <CheckToken />
             <div className="container mt-5">
                 <h1>All Posts</h1>
                 <p>Welcome to all posts</p>

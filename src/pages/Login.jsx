@@ -19,6 +19,13 @@ function Login() {
             setError('Invalid username or password')
         }
     }
+
+    async function handleGuestLogin() {
+        const result = await fetchLogin('guest', 'guest')
+        if (result) {
+            navigate('/posts')
+        }
+    }
         
 
     return (
@@ -53,6 +60,10 @@ function Login() {
                                 <button type="submit" className="btn btn-primary" >Submit</button>
                         </form>
                     </div>
+                </div>
+                <div>
+                    <p>Continue as Guest?</p>
+                    <button className="btn btn-success" onClick={handleGuestLogin}>Continue</button>
                 </div>
             </div>
         </>
