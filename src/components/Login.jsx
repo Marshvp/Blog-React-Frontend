@@ -1,6 +1,7 @@
 import Navbar from "./Navbar"
 import { useState } from 'react'
 import { useNavigate } from "react-router-dom"
+import fetchLogin from "../auth/fetchLogin"
 function Login() {
 
     const [ username, setUsername ] = useState('')
@@ -11,39 +12,14 @@ function Login() {
 
     async function handleSubmit(e) {
         e.preventDefault()
-        setError(null)
-        console.log("before fetch", username, password);
-
-        try {
-            const response = await fetch('http://localhost:3000/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    username,
-                    password
-                })
-            })
-
-            
-            const data = await response.json()
-
-            console.log("data",data);
-
-            if(response.ok) {
-                console.log("data message",data.message);
-                localStorage.setItem('token', data.token)
-                localStorage.setItem('username', data.username)
-                localStorage.setItem('id', data.id)
-                navigate('/')
-            } else {
-                setError(data.message)
-            }
-        } catch (err) {
-            setError('An error occurred please try again')
+        const result = await fetchLogin(username, password)
+        if (result) {
+            navigate('/posts')
+        } else {
+            setError('Invalid username or password')
         }
     }
+        
 
     return (
         <>
@@ -52,7 +28,7 @@ function Login() {
             <div className="container">
                 <div className="row justify-content-center">
                     <div className="col-6">
-                        <form method="post" >
+                        <form method="post" onSubmit={handleSubmit} >
                             {error && <div className="alert alert-danger">{error}</div>}
                                 <div className="mb-3">
                                     <label htmlFor="username" className="form-label">Username</label>
@@ -74,7 +50,7 @@ function Login() {
                                         onChange={e => setPassword(e.target.value)}
                                 />
                                 </div>
-                                <button type="submit" className="btn btn-primary" onClick={handleSubmit}>Submit</button>
+                                <button type="submit" className="btn btn-primary" >Submit</button>
                         </form>
                     </div>
                 </div>
