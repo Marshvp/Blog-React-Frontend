@@ -1,9 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
-import Register from './components/Register.jsx'
-import Login from './components/Login.jsx'
-import AllPosts from './components/AllPosts.jsx'
+import Register from './pages/Register.jsx'
+import Login from './pages/Login.jsx'
+import AllPosts from './pages/AllPosts.jsx'
 import './index.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
